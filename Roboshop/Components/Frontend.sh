@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 USER_ID=$(id -u)
 
 if [ $USER_ID -ne 0 ]; then 
@@ -42,7 +44,7 @@ stat $?
 
 echo -n "sorting the frontend files: "
 mv frontend-main/* .
-mv static/* .
+mv static/* 
 rm -rf frontend-main README.md          &>>/tmp/frontend.log
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
