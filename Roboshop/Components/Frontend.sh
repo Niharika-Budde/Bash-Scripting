@@ -21,7 +21,7 @@ stat() {
 fi
 }
 
-echo -n "Installing COMPONENT :"
+echo -n "Installing nginx :"
 yum install nginx -y         &>>/tmp/COMPONENT.log
 stat $?
 
