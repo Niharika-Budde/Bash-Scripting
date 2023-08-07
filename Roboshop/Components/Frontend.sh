@@ -8,7 +8,7 @@ if [ $USER_ID -ne 0 ]; then
 fi
 
 
-echo -e "\e[35m configuring frontend.......![0m"
+echo -e "\e[35m configuring frontend.......!\e[0m"
 echo "Installing frontend:"
 yum install ngnix -y         &>>/tmp/frontend.log
 
