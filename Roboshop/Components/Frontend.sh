@@ -42,7 +42,7 @@ stat $?
 
 
 
-
+>>'COMMENT'
 # cd /usr/share/nginx/html
 # rm -rf *
 # unzip /tmp/frontend.zip
@@ -50,3 +50,4 @@ stat $?
 # mv static/* .
 # rm -rf frontend-main README.md
 # mv localhost.conf /etc/nginx/default.d/roboshop.conf
+COMMENT
