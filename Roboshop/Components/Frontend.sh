@@ -16,6 +16,7 @@ stat() {
     else 
         echo -e "\e[31m failure \e[0m"
 fi
+}
 
 echo -n "Installing frontend :"
 yum install nginx -y         &>>/tmp/frontend.log
