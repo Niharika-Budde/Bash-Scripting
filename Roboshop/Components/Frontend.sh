@@ -3,14 +3,15 @@
 set -e
 
 USER_ID=$(id -u)
+COMPONENT=$1
 
 if [ $USER_ID -ne 0 ]; then 
-   echo -e "\e[31m script is expected to executed by the root user or with a sudo privilage \e[0m \n \t Example: sudo bash wrapper.sh frontend"
+   echo -e "\e[31m script is expected to executed by the root user or with a sudo privilage \e[0m \n \t Example: sudo bash wrapper.sh COMPONENT"
    exit 1
 fi
 
 
-echo -e "\e[35m configuring frontend.......!\e[0m \n"
+echo -e "\e[35m configuring COMPONENT.......!\e[0m \n"
 
 stat() {
     if [ $1 -eq 0 ]; then
@@ -20,38 +21,38 @@ stat() {
 fi
 }
 
-echo -n "Installing frontend :"
-yum install nginx -y         &>>/tmp/frontend.log
+echo -n "Installing COMPONENT :"
+yum install nginx -y         &>>/tmp/COMPONENT.log
 stat $?
 
 echo -n "starting the nginx:"
-systemctl enable nginx       &>>/tmp/frontend.log
-systemctl start nginx        &>>/tmp/frontend.log
+systemctl enable nginx       &>>/tmp/COMPONENT.log
+systemctl start nginx        &>>/tmp/COMPONENT.log
 stat $?
 
-echo -n "Downloading the frontend component:"
-curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
+echo -n "Downloading the COMPONENT component:"
+curl -s -L -o /tmp/COMPONENT.zip "https://github.com/stans-robot-project/COMPONENT/archive/main.zip"
 stat $?
 
-echo -n "clean up the frontend: "
+echo -n "clean up the COMPONENT: "
 cd /usr/share/nginx/html
-rm -rf *                    &>>/tmp/frontend.log
+rm -rf *                    &>>/tmp/COMPONENT.log
 stat $?
 
-echo -n "extracting the frontend files: "
-unzip /tmp/frontend.zip     &>>/tmp/frontend.log   
+echo -n "extracting the COMPONENT files: "
+unzip /tmp/COMPONENT.zip     &>>/tmp/COMPONENT.log   
 stat $?
 
-echo -n "sorting the frontend files: "
-mv frontend-main/* .
+echo -n "sorting the COMPONENT files: "
+mv COMPONENT-main/* .
 mv static/* .
-rm -rf frontend-main README.md          &>>/tmp/frontend.log
+rm -rf COMPONENT-main README.md          &>>/tmp/COMPONENT.log
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
 
-echo -n "Restarting Frontend"
-systemctl daemon-reload                 &>>/tmp/frontend.log
-systemctl restart nginx                 &>>/tmp/frontend.log
+echo -n "Restarting COMPONENT"
+systemctl daemon-reload                 &>>/tmp/COMPONENT.log
+systemctl restart nginx                 &>>/tmp/COMPONENT.log
 stat $?
 
 
@@ -68,10 +69,3 @@ stat $?
 
 
 
-# cd /usr/share/nginx/html
-# rm -rf *
-# unzip /tmp/frontend.zip
-# mv frontend-main/* .
-# mv static/* .
-# rm -rf frontend-main README.md
-# mv localhost.conf /etc/nginx/default.d/roboshop.conf
