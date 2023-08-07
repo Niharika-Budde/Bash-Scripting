@@ -18,9 +18,9 @@ else
    echo -e "\e[31m failure \e[0m"
 fi
 
-echo -n "starting the ngnix:"
-systemctl enable ngnix
-systemctl start ngnix
+echo -n "starting the nginx:"
+systemctl enable nginx
+systemctl start nginx
 
 if [ $? -eq 0 ]; then
    echo -e "\e[32m success \e[0m"
