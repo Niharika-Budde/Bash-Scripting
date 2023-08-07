@@ -3,7 +3,9 @@
 set -e
 
 USER_ID=$(id -u)
-${COMPONENT}=$1
+COMPONENT=$1
+LOGFILE="/tmp/${COMPONENT}.log"
+
 
 if [ $USER_ID -ne 0 ]; then 
    echo -e "\e[31m script is expected to executed by the root user or with a sudo privilage \e[0m \n \t Example: sudo bash wrapper.sh ${COMPONENT}"
@@ -22,12 +24,12 @@ fi
 }
 
 echo -n "Installing nginx :"
-yum install nginx -y         &>>/tmp/${COMPONENT}.log
+yum install nginx -y         &>>${LOGFILE}
 stat $?
 
 echo -n "starting the nginx:"
-systemctl enable nginx       &>>/tmp/${COMPONENT}.log
-systemctl start nginx        &>>/tmp/${COMPONENT}.log
+systemctl enable nginx       &>>${LOGFILE}
+systemctl start nginx        &>>/${LOGFILE}
 stat $?
 
 echo -n "Downloading the ${COMPONENT} ${COMPONENT}:"
@@ -36,23 +38,23 @@ stat $?
 
 echo -n "clean up the ${COMPONENT}: "
 cd /usr/share/nginx/html
-rm -rf *                    &>>/tmp/${COMPONENT}.log
+rm -rf *                    &>>${LOGFILE}
 stat $?
 
 echo -n "extracting the ${COMPONENT} files: "
-unzip /tmp/${COMPONENT}.zip     &>>/tmp/${COMPONENT}.log   
+unzip /tmp/${COMPONENT}.zip     &>>${LOGFILE}   
 stat $?
 
 echo -n "sorting the ${COMPONENT} files: "
 mv ${COMPONENT}-main/* .
 mv static/* .
-rm -rf ${COMPONENT}-main README.md          &>>/tmp/${COMPONENT}.log
+rm -rf ${COMPONENT}-main README.md          &>>${LOGFILE}
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 stat $?
 
 echo -n "Restarting ${COMPONENT}"
-systemctl daemon-reload                 &>>/tmp/${COMPONENT}.log
-systemctl restart nginx                 &>>/tmp/${COMPONENT}.log
+systemctl daemon-reload                 &>>${LOGFILE}
+systemctl restart nginx                 &>>${LOGFILE}
 stat $?
 
 
