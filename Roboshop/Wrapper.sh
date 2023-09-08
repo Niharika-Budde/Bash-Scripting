@@ -1,9 +1,6 @@
 #!/bin/bash
 
-bash Components/$1.sh
-
-
-
+bash components/$1.sh
 
 
 

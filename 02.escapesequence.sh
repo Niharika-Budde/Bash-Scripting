@@ -10,8 +10,8 @@ echo Welcome To Bach Scripting
 
 #  \n : This indicates a new line 
 # \t  : This gives a tab space 
-#  Manoj\nDevOps
-#  Manoj
+#  Niha\nDevOps
+#  Niha
 #  DevOps
 
 echo Line1
@@ -21,6 +21,8 @@ echo Line3
 echo -e "Line5\nLine6"
 
 #whenever you're using the special characters, always enclose them in double quotes
+# " "  : Double Quotes 
+# ' '  : Single Quotes
 
 echo -e "cloud\tdevops\tarebooming"
 echo -e "we\tare\tlearning\tcloud\tdevOps"
